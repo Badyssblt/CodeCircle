@@ -81,23 +81,27 @@ module.exports.deletePost = async (req, res) => {
 };
 
 module.exports.answer = async (req, res) => {
-  const post = await prisma.post.findUnique({
-    where: {
-      id: parseInt(req.params.id),
-    },
-  });
+  try {
+    const post = await prisma.post.findUnique({
+      where: {
+        id: parseInt(req.params.id),
+      },
+    });
 
-  const content = req.body.content;
+    const content = req.body.content;
 
-  const answer = await prisma.answer.create({
-    data: {
-      postId: post.id,
-      authorId: req.user.id,
-      content,
-    },
-  });
+    const answer = await prisma.answer.create({
+      data: {
+        postId: post.id,
+        authorId: req.user.id,
+        content,
+      },
+    });
 
-  res.json(answer);
+    res.json(answer);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
 };
 
 module.exports.search = async (req, res) => {

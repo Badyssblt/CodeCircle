@@ -16,7 +16,7 @@ const isOwner = async (req, res, next) => {
 
     req.user = decoded;
 
-    const postId = parseInt(req.params.id);
+    const postId = parseInt(req.params.postId);
 
     const post = await prisma.post.findUnique({
       where: { id: postId },

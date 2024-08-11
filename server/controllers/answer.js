@@ -24,3 +24,19 @@ module.exports.deleteAnswer = async (req, res) => {
 
   res.status(204).json();
 };
+
+module.exports.setAsAccepted = async (req, res) => {
+  try {
+    const answer = await prisma.answer.update({
+      where: {
+        id: parseInt(req.params.id),
+      },
+      data: {
+        is_accepted: true,
+      },
+    });
+    res.json(answer);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};

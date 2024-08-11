@@ -24,14 +24,23 @@ model Post {
   author     User     @relation(fields: [authorId], references: [id])
   authorId   Int
   answers    Answer[]
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
 }
 
 model Answer {
-  id         Int      @id @default(autoincrement())
-  post       Post     @relation(fields: [postId], references: [id])
-  postId     Int
-  author     User     @relation(fields: [authorId], references: [id])
-  authorId   Int
-  content    String
-  created_at DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  post        Post     @relation(fields: [postId], references: [id])
+  postId      Int
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    Int
+  content     String
+  created_at  DateTime @default(now())
+  is_accepted Boolean  @default(false)
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  title String
+  posts Post[]
 }
