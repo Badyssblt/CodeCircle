@@ -1,4 +1,4 @@
 
-const isOwner = (req, res, next) => {
-
+const isOwner = (post) => {
+    
 }
