@@ -8,18 +8,39 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  name     String @db.VarChar(30)
-  email    String @unique(map: "User_email_key")
+  id       Int      @id @default(autoincrement())
+  name     String   @db.VarChar(30)
+  email    String   @unique(map: "User_email_key")
   password String
-  posts Post[]
+  posts    Post[]
+  Answer   Answer[]
 }
 
 model Post {
-  id Int @id @default(autoincrement())
-  title String @db.VarChar(255)
+  id         Int      @id @default(autoincrement())
+  title      String   @db.VarChar(255)
   created_at DateTime @default(now())
-  content String? 
-  author User @relation(fields: [authorId], references: [id])
-  authorId Int 
+  content    String?
+  author     User     @relation(fields: [authorId], references: [id])
+  authorId   Int
+  answers    Answer[]
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+}
+
+model Answer {
+  id          Int      @id @default(autoincrement())
+  post        Post     @relation(fields: [postId], references: [id])
+  postId      Int
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    Int
+  content     String
+  created_at  DateTime @default(now())
+  is_accepted Boolean  @default(false)
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  title String
+  posts Post[]
 }

@@ -3,7 +3,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const jwt = require("jsonwebtoken");
 
-const isOwner = async (req, res, next) => {
+const isWriter = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
   if (!token) {
     return res.status(401).json({ message: "Veuillez vous connecter" });
@@ -16,26 +16,26 @@ const isOwner = async (req, res, next) => {
 
     req.user = decoded;
 
-    const postId = parseInt(req.params.postId);
+    const answerId = parseInt(req.params.id);
 
-    const post = await prisma.post.findUnique({
-      where: { id: postId },
+    const answer = await prisma.answer.findUnique({
+      where: { id: answerId },
     });
 
-    if (!post) {
+    if (!answer) {
       return res.status(404).json({ message: "Post non trouvé" });
     }
 
-    if (post.authorId !== req.user.id) {
+    if (answer.authorId !== req.user.id) {
       return res
         .status(403)
         .json({ message: "Vous n'êtes pas autorisé à effectuer cette action" });
     }
 
-    req.post = post;
+    req.answer = answer;
 
     next();
   });
 };
 
-module.exports = isOwner;
+module.exports = isWriter;
