@@ -12,6 +12,12 @@ module.exports.getAll = async (req, res) => {
           name: true,
         },
       },
+      category: true,
+      _count: {
+        select: {
+          answers: true
+        }
+      }
     },
   });
 
@@ -19,41 +25,64 @@ module.exports.getAll = async (req, res) => {
 };
 
 module.exports.get = async (req, res) => {
-  const post = await prisma.post.findUnique({
-    where: {
-      id: parseInt(req.params.id),
-    },
-    include: {
-      author: {
-        select: {
-          id: true,
-          name: true,
+  try {
+    const post = await prisma.post.findUnique({
+      where: {
+        id: parseInt(req.params.id),
+      },
+      include: {
+        author: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        answers: {
+          select: {
+            id: true,
+            content: true,
+            author: {
+              select: {
+                id: true,
+                name: true
+              }
+            }
+          },
+          orderBy: {
+            created_at: "asc",
+          },
         },
       },
-      answers: {
-        select: {
-          id: true,
-          content: true,
-        },
-        orderBy: {
-          created_at: "asc",
-        },
-      },
-    },
-  });
-  res.json(post);
+    });
+
+    if (!post) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+
+    res.json(post);
+  } catch (error) {
+    res.status(404).json({ error: error.message });
+  }
+  
 };
 
 module.exports.create = async (req, res) => {
-  const post = await prisma.post.create({
-    data: {
-      title: req.body.title,
-      content: req.body.content,
-      authorId: req.user.id,
-    },
-  });
+  try {
+    const post = await prisma.post.create({
+      data: {
+        title: req.body.title,
+        content: req.body.content,
+        authorId: req.user.id,
+        categoryId: req.body.categoryId,
+        type: req.body.type
+      },
+    });
+  
+    res.json(post);
+  } catch (error) {
+    res.status(400).json({error: error.message})
+  }
 
-  res.json(post);
 };
 
 module.exports.update = async (req, res) => {
@@ -135,3 +164,18 @@ module.exports.search = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+module.exports.getLast = async (req, res) => {
+  try {
+    const posts = await prisma.post.findMany({
+      orderBy: {
+        created_at: 'desc'
+      },
+      take: 4
+    })
+
+    res.json(posts);
+  } catch (error) {
+    res.status(500).json({error: error.message});
+  }
+}

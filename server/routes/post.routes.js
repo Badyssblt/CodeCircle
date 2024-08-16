@@ -7,6 +7,8 @@ const {
   deletePost,
   answer,
   search,
+  findByCriteria,
+  getLast,
 } = require("../controllers/post");
 const verifyToken = require("../middlewares/verifyToken");
 const isOwner = require("../middlewares/isOwner");
@@ -14,6 +16,7 @@ const router = express.Router();
 
 router.get("/", getAll);
 router.get("/search", search);
+router.get('/last', getLast);
 router.get("/:id", get);
 router.post("/", verifyToken, create);
 router.patch("/:id", isOwner, update);
