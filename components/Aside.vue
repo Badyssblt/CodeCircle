@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed top-0 right-0 w-full h-screen bg-background md:hidden" v-if="isShow">
+    <div class="fixed top-0 right-0 w-full h-screen bg-background md:hidden z-50" v-if="isShow">
         <div class="relative flex flex-col justify-center h-screen items-center">
             <button class="absolute top-2 right-2" @click="close">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
