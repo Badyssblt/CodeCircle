@@ -2,6 +2,11 @@ const express = require("express");
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
 const app = express();
+const path = require("path");
+
+// Permet de lire les images sur l'URL /images/ImageID
+const staticDir = path.join(__dirname + "/uploads/images/users");
+app.use("/images", express.static(staticDir));
 
 app.use(
   fileUpload({

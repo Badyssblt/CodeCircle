@@ -10,6 +10,7 @@ module.exports.getAll = async (req, res) => {
       select: {
         id: true,
         name: true,
+        imageName: true,
       },
     });
     res.json(users);
