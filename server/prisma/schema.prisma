@@ -13,8 +13,12 @@ model User {
   email     String   @unique(map: "User_email_key")
   password  String
   posts     Post[]
-  Answer    Answer[]
+  answers   Answer[]
   imageName String?
+
+  // Relations de suivi
+  following Follower[] @relation("FollowingRelationship")
+  followers Follower[] @relation("FollowersRelationship")
 }
 
 model Post {
@@ -45,4 +49,15 @@ model Category {
   id    Int    @id @default(autoincrement())
   title String
   posts Post[]
+}
+
+model Follower {
+  id             Int @id @default(autoincrement())
+  followerId     Int
+  followedUserId Int
+
+  follower     User @relation("FollowingRelationship", fields: [followerId], references: [id])
+  followedUser User @relation("FollowersRelationship", fields: [followedUserId], references: [id])
+
+  @@unique([followerId, followedUserId])
 }

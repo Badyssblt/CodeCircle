@@ -67,3 +67,15 @@ module.exports.upload = async (req, res) => {
 
   res.status(200).json();
 };
+
+module.exports.follow = async (req, res) => {
+  try {
+    await prisma.follower.create({
+      data: {
+        followerId: req.user.id,
+        followedUserId: req.body.userId,
+      },
+    });
+    res.json({ message: "Utilisateur suivis", status: "ok" });
+  } catch (error) {}
+};
