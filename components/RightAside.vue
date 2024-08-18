@@ -49,7 +49,7 @@
     });
 
     const filteredQuestions = computed(() => {
-        return posts.value.filter(item => item.type === 'question');
+        return posts.value.filter(item => item.type === 'answer');
     });
 
     const { $api } = useNuxtApp();
