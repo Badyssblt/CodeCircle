@@ -10,7 +10,7 @@
                 <div>
                     <div class="flex items-center gap-4 mt-2">
                         <div class="w-10 h-10 flex items-center justify-center overflow-hidden">
-                            <img src="https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png" alt="Tracking User Behavior" class="object-cover w-full h-full rounded-full">
+                            <img :src="$config.public.SERVER_URL + '/images/' + post.author.imageName" alt="Tracking User Behavior" class="object-cover w-full h-full rounded-full">
                         </div>
                         <div>
                             <h2>{{ post.author.name }}</h2>

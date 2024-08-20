@@ -23,5 +23,8 @@
     "nuxt-tiptap-editor": "^1.2.0",
     "pinia": "^2.2.1",
     "vue": "latest"
+  },
+  "devDependencies": {
+    "@nuxtjs/dotenv": "^1.4.2"
   }
 }

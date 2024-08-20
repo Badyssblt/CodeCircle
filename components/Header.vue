@@ -20,9 +20,18 @@
           </div>
           <div v-if="userStore.isAuthenticated" class="flex items-center gap-2">
                 <button class="bg-lemon text-background rounded-md px-2 py-1 flex justify-center transition-all hover:bg-lemon/60" @click="logout">Se deconnecter</button>
-                <NuxtLink><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="size-10">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                    </svg>
+                <NuxtLink to="/profile">
+                    <div v-if="userStore.getUser.image == null">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="size-10">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+                    </div>
+                    <div v-else-if="userStore.getUser.image !== null">
+                        <div class="w-10 h-10 flex items-center justify-center overflow-hidden">
+                            <img :src="'http://localhost:5000/images/' + userStore.getUser.image" alt="Tracking User Behavior" class="object-cover w-full h-full rounded-full">
+                        </div>
+                    </div>
+                    
                 </NuxtLink>
           </div>
       </div>
@@ -33,6 +42,7 @@
 
 <script setup>
 import { useUserStore } from '@/stores/user';
+import { onMounted } from 'vue';
 
     const userStore = useUserStore();
     const isAuthenticated = computed(() => userStore.isAuthenticated());
@@ -60,6 +70,7 @@ import { useUserStore } from '@/stores/user';
         router.push({ path: '/search', query: { q: query.value }})
         query.value = "";
     }
+
 
 </script>
 

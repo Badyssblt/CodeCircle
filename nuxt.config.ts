@@ -6,7 +6,8 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@nuxtjs/google-fonts",
     'dayjs-nuxt',
-    "nuxt-tiptap-editor"
+    "nuxt-tiptap-editor",
+    
   ],
   css: ["~/assets/style.css"],
   plugins: [
@@ -17,5 +18,10 @@ export default defineNuxtConfig({
   },
   tiptap: {
     prefix: 'Tiptap'
+  },
+  runtimeConfig: {
+    public: {
+      SERVER_URL: "http://localhost:5000"
+    }
   }
 })
