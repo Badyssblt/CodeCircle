@@ -29,6 +29,9 @@
   const password = ref('');
   const state = ref(false);
 
+useHead({
+        title: "S'inscrire"
+    })
 
   const { $api } = useNuxtApp();
 

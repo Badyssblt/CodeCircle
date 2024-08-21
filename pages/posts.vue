@@ -50,6 +50,11 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 
+
+useHead({
+        title: "Tous les posts"
+})
+
 const posts = ref([]);
 const loading = ref(false);
 const filterDiv = ref(null);

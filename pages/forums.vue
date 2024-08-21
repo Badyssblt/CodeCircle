@@ -26,6 +26,10 @@
 
 <script setup>
 
+    useHead({
+        title: "Tous les forums"
+    })
+
     const posts = ref([]);
     const loading = ref(false);
 

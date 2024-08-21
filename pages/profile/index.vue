@@ -32,6 +32,11 @@
 import { useUserStore } from '@/stores/user';
 import { onMounted } from 'vue';
 
+
+useHead({
+        title: "Mon profil"
+    })
+
 const userStore = useUserStore();
 const isAuthenticated = computed(() => userStore.isAuthenticated());
 const user = computed(() => userStore.getUser);

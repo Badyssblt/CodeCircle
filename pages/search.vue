@@ -11,6 +11,10 @@
     const route = useRoute();
     const posts = ref([]);
 
+    useHead({
+        title: "Rechercher"
+    })
+
     const { $api } = useNuxtApp();
 
     const getPosts = async () => {

@@ -83,6 +83,9 @@ dayjs.locale('fr')
         try {
             const response = await $api.get('/post/' + id.value);
             post.value = response.data
+            useHead({
+                title: post.value.title
+            })
             await nextTick();
         } catch (error) {
             loading.value = false

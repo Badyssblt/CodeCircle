@@ -18,7 +18,7 @@
                  <div v-if="posts.length == 0" class="md:w-2/3 w-full mt-4">
                     <p>Aucun post...</p>
                 </div>
-                <div class="flex flex-col md:w-2/3">
+                <div class="flex flex-col md:w-2/3 w-full">
                     <div v-for="(posts, category) in limitedGroupedPosts" :key="category" class=" w-full">
                         <Groups :title="category">
                             <!-- Itération sur les posts de chaque catégorie -->
@@ -46,7 +46,9 @@
 </template>
 
 <script setup>
-
+    useHead({
+        title: "Accueil"
+    })
     const posts = ref([]);
     const loading = ref(false);
 

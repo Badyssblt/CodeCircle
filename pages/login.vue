@@ -25,6 +25,11 @@
 <script setup>
 import { useUserStore } from '@/stores/user';
 
+  useHead({
+        title: "Se connecter"
+    })
+
+
   const state = ref(false);
   const email = ref('');
   const password = ref('');

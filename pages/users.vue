@@ -20,6 +20,10 @@
 
     const users = ref([]);
 
+    useHead({
+        title: "Utilisateurs"
+    })
+
     const { $api } = useNuxtApp();
 
     const getUsers = async () => {

@@ -30,6 +30,11 @@
 </template>
 
 <script setup>
+
+    useHead({
+        title: "Créer un post"
+    })
+
     const title = ref('');
     const content = ref('');
     const type = ref('');
