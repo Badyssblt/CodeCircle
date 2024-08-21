@@ -30,7 +30,7 @@ module.exports.login = async (req, res) => {
     });
     if (bcrypt.compareSync(req.body.password, user.password)) {
       const token = jwt.sign(
-        { id: user.id, email: user.email },
+        { id: user.id, email: user.email, image: user.imageName },
         process.env.JWT_SECRET
       );
       res.json({ token });

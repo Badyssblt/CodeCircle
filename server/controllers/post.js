@@ -10,6 +10,7 @@ module.exports.getAll = async (req, res) => {
         select: {
           id: true,
           name: true,
+          imageName: true
         },
       },
       category: true,
@@ -22,7 +23,7 @@ module.exports.getAll = async (req, res) => {
   });
 
   res.json(posts);
-};
+}
 
 module.exports.get = async (req, res) => {
   try {
@@ -35,6 +36,7 @@ module.exports.get = async (req, res) => {
           select: {
             id: true,
             name: true,
+            imageName: true
           },
         },
         answers: {

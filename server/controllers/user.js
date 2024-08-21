@@ -3,6 +3,8 @@ const { PrismaClient } = pkg;
 const prisma = new PrismaClient();
 const { v4: uuidv4 } = require("uuid");
 const fs = require("fs");
+const bcrypt = require("bcryptjs");
+
 
 module.exports.getAll = async (req, res) => {
   try {
@@ -79,3 +81,38 @@ module.exports.follow = async (req, res) => {
     res.json({ message: "Utilisateur suivis", status: "ok" });
   } catch (error) {}
 };
+
+
+module.exports.get = async (req, res) => {
+  try {
+    const user = await prisma.user.findUnique({
+        where: {
+          id: req.user.id
+        }
+    });
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({error: error.message})
+  }
+}
+
+module.exports.update = async (req, res) => {
+  try {
+    const salt = bcrypt.genSaltSync(10);
+   const hashPassword = bcrypt.hashSync(req.body.password, salt);
+
+    const user = await prisma.user.update({
+      where: {
+        id: parseInt(req.user.id),
+      },
+      data: {
+        name: req.body.name,
+        email: req.body.email,
+        password: hashPassword
+      }
+    });
+    res.status(201).json(user);
+  } catch (error) {
+    res.status(500).json({error: error.message})
+  }
+}
